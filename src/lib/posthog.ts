@@ -1,5 +1,19 @@
 import posthog from 'posthog-js'
 
+type EventProperties = {
+  question_id?: number;
+  question_text?: string;
+  category?: string;
+  score?: number;
+  questions_answered?: number;
+  total_questions?: number;
+  selected_questions?: Array<{
+    id: number;
+    text?: string;
+    category?: string;
+  }>;
+};
+
 // Initialize PostHog with your project API key
 // You'll need to replace this with your actual PostHog project API key
 export const initPostHog = () => {
@@ -13,7 +27,7 @@ export const initPostHog = () => {
   }
 }
 
-export const captureEvent = (eventName: string, properties?: Record<string, any>) => {
+export const captureEvent = (eventName: string, properties?: EventProperties) => {
   if (typeof window !== 'undefined') {
     posthog.capture(eventName, properties);
   }

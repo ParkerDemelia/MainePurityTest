@@ -35,11 +35,11 @@ export default function Home() {
   };
 
   const getScoreMessage = (score: number) => {
-    if (score >= 90) return "You're practically from away!";
-    if (score >= 70) return "You're getting there, bub!";
-    if (score >= 50) return "You're a part-time Mainer!";
-    if (score >= 30) return "Now you're talking, ayuh!";
-    return "You're a true Mainah!";
+    if (score >= 90) return "You&apos;re practically from away!";
+    if (score >= 70) return "You&apos;re getting there, bub!";
+    if (score >= 50) return "You&apos;re a part-time Mainer!";
+    if (score >= 30) return "Now you&apos;re talking, ayuh!";
+    return "You&apos;re a true Mainah!";
   };
 
   const handleCalculateScore = () => {
@@ -73,7 +73,7 @@ export default function Home() {
 
         <div className="subtitle-text" style={{ maxWidth: '800px', margin: '0 auto 20px' }}>
           The Maine Purity Test measures how much of a true Mainer you really are.<br />
-          Check off all the quintessential Maine experiences you've had to find out!
+          Check off all the quintessential Maine experiences you&apos;ve had to find out!
         </div>
 
         <div className="caution-text">
@@ -124,7 +124,7 @@ export default function Home() {
             <h2 className="text-4xl font-bold mb-4">Your score:</h2>
             <p className="text-8xl font-bold mb-4" style={{ color: '#FF0000' }}>{calculateScore()}</p>
             <p className="text-2xl mb-4">Thank you for your submission!</p>
-            <p className="text-xl mb-8">{getScoreMessage(calculateScore())}</p>
+            <p className="text-xl mb-8" dangerouslySetInnerHTML={{ __html: getScoreMessage(calculateScore()) }} />
             <p className="text-lg">
               The Maine Purity test was created for Mainers and visitors alike to measure their Maine experience.
             </p>
