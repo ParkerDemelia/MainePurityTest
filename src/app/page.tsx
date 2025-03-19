@@ -1,4 +1,5 @@
 'use client';
+/* eslint-disable react/no-unescaped-entities */
 
 import { useState } from 'react';
 import { questions } from '@/data/questions';
@@ -23,7 +24,6 @@ export default function Home() {
 
   const clearCheckboxes = () => {
     setSelectedQuestions(new Set());
-    setShowScore(false);
   };
 
   const getScoreMessage = (score: number) => {
@@ -55,56 +55,57 @@ export default function Home() {
           Caution: This is not a bucket list. Some activities may be dangerous if not properly prepared.
         </div>
 
-        <div className="instructions-text">
-          Click on every item you have done.
-        </div>
-
-        <div className="question-list">
-          {questions.map((q) => (
-            <div key={q.id} className="question-item">
-              <input
-                type="checkbox"
-                id={`q${q.id}`}
-                checked={selectedQuestions.has(q.id)}
-                onChange={() => toggleQuestion(q.id)}
-                className="question-checkbox"
-              />
-              <label htmlFor={`q${q.id}`} style={{ cursor: 'pointer' }}>
-                <span className="question-number">{q.id}.</span>
-                {q.text}
-              </label>
+        {!showScore ? (
+          <>
+            <div className="instructions-text">
+              Click on every item you have done.
             </div>
-          ))}
-        </div>
 
-        <div className="flex justify-center gap-4 mt-8 mb-8">
-          <button
-            onClick={() => setShowScore(true)}
-            className="px-8 py-3 text-xl rounded-full bg-[#D1F2D1] hover:bg-[#B1E3B1] transition-colors border border-black"
-            style={{ fontFamily: 'Times New Roman, serif' }}
-          >
-            Calculate My Score!
-          </button>
-          <button
-            onClick={clearCheckboxes}
-            className="px-8 py-3 text-xl rounded-full bg-[#D1F2D1] hover:bg-[#B1E3B1] transition-colors border border-black"
-            style={{ fontFamily: 'Times New Roman, serif' }}
-          >
-            Clear checkboxes
-          </button>
-          
-        </div>
-        
+            <div className="question-list">
+              {questions.map((q) => (
+                <div key={q.id} className="question-item">
+                  <input
+                    type="checkbox"
+                    id={`q${q.id}`}
+                    checked={selectedQuestions.has(q.id)}
+                    onChange={() => toggleQuestion(q.id)}
+                    className="question-checkbox"
+                  />
+                  <label htmlFor={`q${q.id}`} style={{ cursor: 'pointer' }}>
+                    <span className="question-number">{q.id}.</span>
+                    {q.text}
+                  </label>
+                </div>
+              ))}
+            </div>
 
-        {showScore && (
+            <div className="flex justify-center gap-4 mt-8 mb-8">
+              <button
+                onClick={() => setShowScore(true)}
+                className="px-8 py-3 text-xl rounded-full bg-[#D1F2D1] hover:bg-[#B1E3B1] transition-colors border border-black"
+                style={{ fontFamily: 'Times New Roman, serif' }}
+              >
+                Calculate My Score!
+              </button>
+              <button
+                onClick={clearCheckboxes}
+                className="px-8 py-3 text-xl rounded-full bg-[#D1F2D1] hover:bg-[#B1E3B1] transition-colors border border-black"
+                style={{ fontFamily: 'Times New Roman, serif' }}
+              >
+                Clear checkboxes
+              </button>
+            </div>
+          </>
+        ) : (
           <div className="text-center">
             <h2 className="text-4xl font-bold mb-4">Your score:</h2>
             <p className="text-8xl font-bold mb-4" style={{ color: '#FF0000' }}>{calculateScore()}</p>
             <p className="text-2xl mb-4">Thank you for your submission!</p>
             <p className="text-xl mb-8">{getScoreMessage(calculateScore())}</p>
-            <p className="text-lg">
+            <p className="text-lg mb-6">
               The Maine Purity test was created for Mainers and visitors alike to measure their Maine experience.
             </p>
+            <p className="text-md italic">Refresh the page to take the test again.</p>
           </div>
         )}
         <br></br><p style={{ textAlign: 'center' }}> made by <a href="https://www.instagram.com/parker.demelia">@parkerdemelia</a></p>
