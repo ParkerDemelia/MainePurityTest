@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Rice Purity Test",
-  description: "The Rice Purity Test - How pure are you?",
+  title: "Maine Purity Test",
+  description: "The Maine Purity Test - How Mainer are you?",
 };
 
 export default function RootLayout({
