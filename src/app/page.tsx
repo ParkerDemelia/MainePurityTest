@@ -27,11 +27,11 @@ export default function Home() {
   };
 
   const getScoreMessage = (score: number) => {
-    if (score >= 90) return "You&apos;re practically from away!";
-    if (score >= 70) return "You&apos;re getting there, bub!";
-    if (score >= 50) return "You&apos;re a part-time Mainer!";
-    if (score >= 30) return "Now you&apos;re talking, ayuh!";
-    return "You&apos;re a true Mainah!";
+    if (score >= 90) return "You're practically from away!";
+    if (score >= 70) return "You're getting there, bub!";
+    if (score >= 50) return "You're a part-time Mainer!";
+    if (score >= 30) return "Now you're talking, ayuh!";
+    return "You're a true Mainah!";
   };
 
   return (
@@ -48,7 +48,7 @@ export default function Home() {
 
         <div className="subtitle-text" style={{ maxWidth: '800px', margin: '0 auto 20px' }}>
           The Maine Purity Test measures how much of a true Mainer you really are.<br />
-          Check off all the quintessential Maine experiences you&apos;ve had to find out!
+          Check off all the quintessential Maine experiences you've had to find out!
         </div>
 
         <div className="caution-text">
@@ -94,7 +94,7 @@ export default function Home() {
           </button>
           
         </div>
-        <br></br><p style={{ textAlign: 'center' }}> made by <a href="https://www.instagram.com/parker.demelia">@parkerdemelia</a></p>
+        
 
         {showScore && (
           <div className="text-center">
@@ -107,6 +107,7 @@ export default function Home() {
             </p>
           </div>
         )}
+        <br></br><p style={{ textAlign: 'center' }}> made by <a href="https://www.instagram.com/parker.demelia">@parkerdemelia</a></p>
       </div>
     </main>
   );
