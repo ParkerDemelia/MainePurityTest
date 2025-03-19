@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { questions } from '@/data/questions';
-import { captureEvent } from '@/lib/posthog';
 
 export default function Home() {
   const [selectedQuestions, setSelectedQuestions] = useState<Set<number>>(new Set());
@@ -14,12 +13,6 @@ export default function Home() {
       newSelected.delete(id);
     } else {
       newSelected.add(id);
-      // Track when a question is checked
-      captureEvent('question_checked', {
-        question_id: id,
-        question_text: questions.find(q => q.id === id)?.text,
-        category: questions.find(q => q.id === id)?.category
-      });
     }
     setSelectedQuestions(newSelected);
   };
@@ -31,32 +24,14 @@ export default function Home() {
   const clearCheckboxes = () => {
     setSelectedQuestions(new Set());
     setShowScore(false);
-    captureEvent('checkboxes_cleared');
   };
 
   const getScoreMessage = (score: number) => {
-    if (score >= 90) return "You&apos;re practically from away!";
-    if (score >= 70) return "You&apos;re getting there, bub!";
-    if (score >= 50) return "You&apos;re a part-time Mainer!";
-    if (score >= 30) return "Now you&apos;re talking, ayuh!";
-    return "You&apos;re a true Mainah!";
-  };
-
-  const handleCalculateScore = () => {
-    const score = calculateScore();
-    setShowScore(true);
-    
-    // Track the final score
-    captureEvent('test_completed', {
-      score,
-      questions_answered: selectedQuestions.size,
-      total_questions: questions.length,
-      selected_questions: Array.from(selectedQuestions).map(id => ({
-        id,
-        text: questions.find(q => q.id === id)?.text,
-        category: questions.find(q => q.id === id)?.category
-      }))
-    });
+    if (score >= 90) return "You're practically from away!";
+    if (score >= 70) return "You're getting there, bub!";
+    if (score >= 50) return "You're a part-time Mainer!";
+    if (score >= 30) return "Now you're talking, ayuh!";
+    return "You're a true Mainah!";
   };
 
   return (
@@ -73,7 +48,7 @@ export default function Home() {
 
         <div className="subtitle-text" style={{ maxWidth: '800px', margin: '0 auto 20px' }}>
           The Maine Purity Test measures how much of a true Mainer you really are.<br />
-          Check off all the quintessential Maine experiences you&apos;ve had to find out!
+          Check off all the quintessential Maine experiences you've had to find out!
         </div>
 
         <div className="caution-text">
@@ -104,7 +79,7 @@ export default function Home() {
 
         <div className="flex justify-center gap-4 mt-8 mb-8">
           <button
-            onClick={handleCalculateScore}
+            onClick={() => setShowScore(true)}
             className="px-8 py-3 text-xl rounded-full bg-[#D1F2D1] hover:bg-[#B1E3B1] transition-colors border border-black"
             style={{ fontFamily: 'Times New Roman, serif' }}
           >
@@ -117,14 +92,16 @@ export default function Home() {
           >
             Clear checkboxes
           </button>
+          
         </div>
+        <br></br><p style={{ textAlign: 'center' }}> made by <a href="https://www.instagram.com/parker.demelia">@parkerdemelia</a></p>
 
         {showScore && (
           <div className="text-center">
             <h2 className="text-4xl font-bold mb-4">Your score:</h2>
             <p className="text-8xl font-bold mb-4" style={{ color: '#FF0000' }}>{calculateScore()}</p>
             <p className="text-2xl mb-4">Thank you for your submission!</p>
-            <p className="text-xl mb-8" dangerouslySetInnerHTML={{ __html: getScoreMessage(calculateScore()) }} />
+            <p className="text-xl mb-8">{getScoreMessage(calculateScore())}</p>
             <p className="text-lg">
               The Maine Purity test was created for Mainers and visitors alike to measure their Maine experience.
             </p>
